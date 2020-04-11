@@ -1,5 +1,4 @@
-package Conta;
-
+package Contas;
 public class Conta {
 
 	private String nome;
@@ -11,7 +10,7 @@ public class Conta {
 		this.numero = numero;
 		this.saldo = valorInicial;
 	}
-	
+
 	public void depositar(float valor) {
 		this.saldo += valor;
 	}
@@ -30,6 +29,9 @@ public class Conta {
 		this.saldo += valor;
 	}
 	
-	
+	public int getNumero(){
+		return this.numero;
+	}
+
 	
 }

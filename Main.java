@@ -1,3 +1,4 @@
+package Contas;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,8 +6,7 @@ import javax.swing.JOptionPane;
 
 import java.util.List;
 
-import Conta.ContaComum;
-import Conta.ContaEspecial;
+import Contas.ContaEspecial;
 
 
 public class Main {
@@ -19,6 +19,8 @@ public class Main {
 		String nomeUsuario;
 		float valorInicial;
 		float limite;
+		float saque;
+		float deposito;
 
 		
 		int numeroConta = 1;
@@ -70,9 +72,61 @@ public class Main {
 				break;
 			}
 			case 2: {
+				System.out.print("Digite o número da conta:");
+				numeroConta = leitura.nextInt();
+				System.out.println("1 - Conta Especial");
+				System.out.println("2 - Conta Comum");
+				tipoConta = leitura.nextInt();
+				if(tipoConta == 1) {
+					for(int i=0; i<listaContaEspecial.size(); i++) {
+						if(listaContaEspecial.get(i).getNumero() == numeroConta) {
+							System.out.println("Qual o valor do saque?");
+							saque = leitura.nextFloat();
+							if(listaContaEspecial.get(i).sacar(saque)) {
+								System.out.println("Saque realizado com sucesso!!");
+							}
+							System.out.println("Erro ao realizar o saque.");
+						}
+					}
+				}else if (tipoConta == 2) {
+					for(int i=0;i<listaContaComum.size();i++) {
+						if(listaContaComum.get(i).getNumero() == numeroConta) {
+							System.out.println("Qual o valor do saque?");
+							saque = leitura.nextFloat();
+							if(listaContaComum.get(i).sacar(saque)) {
+								System.out.println("Saque realizado com sucesso!!");
+							}
+							System.out.println("Erro ao realizar o saque.");
+						}
+					}
+				}
 				break;
 			}
 			case 3: {
+				System.out.print("Digite o número da conta:");
+				numeroConta = leitura.nextInt();
+				System.out.println("1 - Conta Especial");
+				System.out.println("2 - Conta Comum");
+				tipoConta = leitura.nextInt();
+				if(tipoConta == 1) {
+					for(int i=0; i<listaContaEspecial.size(); i++) {
+						if(listaContaEspecial.get(i).getNumero() == numeroConta) {
+							System.out.println("Qual o valor do depósito?");
+							deposito = leitura.nextFloat();
+							listaContaEspecial.get(i).depositar(deposito);
+								System.out.println("Depósito realizado com sucesso!!");
+						}
+					}
+				}else if (tipoConta == 2) {
+					for(int i=0;i<listaContaComum.size();i++) {
+						if(listaContaComum.get(i).getNumero() == numeroConta) {
+							System.out.println("Qual o valor do deposito?");
+							deposito = leitura.nextFloat();
+							listaContaComum.get(i).depositar(deposito);
+								System.out.println("Saque realizado com sucesso!!");
+						}
+					}
+				}
 				break;
 			}
 			case 4: {
@@ -82,12 +136,13 @@ public class Main {
 				break;
 			}
 			default:
-				throw new IllegalArgumentException("Unexpected value: " + key);
+				throw new IllegalArgumentException("Unexpected value: " + opcao);
 			}
 			
 		}while(opcao !=0);
 		
 		
 	}
+
 	
 }
