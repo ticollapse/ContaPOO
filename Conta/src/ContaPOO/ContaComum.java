@@ -7,6 +7,7 @@ public class ContaComum extends Conta {
 		super(nome,numero,valorInicial);
 	}
 
+	@Override
 	public boolean sacar(float valor) {
 		if(this.saldo >= valor) {
 			this.saldo -= valor;

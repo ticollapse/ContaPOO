@@ -1,6 +1,6 @@
 package ContaPOO;
 
-public class Conta {
+public abstract class Conta {
 
 	private String nome;
 	private int numero;
@@ -16,22 +16,31 @@ public class Conta {
 		this.saldo += valor;
 	}
 	
-	
-	public boolean transferePara(Conta c, float valor) {
-		if(this.saldo >= valor) {
-			this.saldo -= valor;
-			c.adicionarSaldo(valor);
-			return true;
-		}
-		return false;
-	}
+	public abstract boolean sacar(float valor);
 	
 	public void adicionarSaldo(float valor) {
 		this.saldo += valor;
 	}
+
+	public void removerSaldo(float valor) {
+		this.saldo -= valor;
+	}
 	
 	public int getNumero(){
 		return this.numero;
+	}
+	
+	public float getSaldo(){
+		return this.saldo;
+	}
+	
+	public boolean transferir(Conta destino,float valor) {
+		if(this.saldo - valor >= 0) {
+			this.saldo -= valor;
+			destino.adicionarSaldo(valor);
+			return true;
+		}
+		return false;
 	}
 
 	

@@ -10,6 +10,7 @@ public class ContaEspecial extends Conta{
 		this.limiteCredito = limite;
 	}
 
+	@Override
 	public boolean sacar(float valor) {
 		if(this.saldo  + limiteCredito >= valor) {
 			this.saldo -= valor;

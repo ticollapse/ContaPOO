@@ -24,8 +24,11 @@ public class Main {
 		
 		int numeroConta = 1;
 		
+		List<Conta> listaConta = new ArrayList<Conta>();
+		
+		/*
 		List<ContaComum> listaContaComum = new ArrayList<ContaComum>();
-		List<ContaEspecial> listaContaEspecial = new ArrayList<ContaEspecial>();
+		List<ContaEspecial> listaContaEspecial = new ArrayList<ContaEspecial>();*/
 		
 		do {
 			System.out.println("1 - Criar Conta");
@@ -55,10 +58,10 @@ public class Main {
 					limite = leitura.nextFloat();
 			
 					ContaEspecial ce = new ContaEspecial(nomeUsuario,numeroConta,valorInicial,limite);
-					listaContaEspecial.add(ce);
+					listaConta.add(ce);
 				}else if( tipoConta == 2 ){
 					ContaComum cc = new ContaComum(nomeUsuario,numeroConta,valorInicial);
-					listaContaComum.add(cc);
+					listaConta.add(cc);
 				}
 				
 				if (tipoConta == 1 || tipoConta == 2) {
@@ -71,71 +74,73 @@ public class Main {
 				break;
 			}
 			case 2: {
+				int numeroContaAux = 0;
 				System.out.print("Digite o n�mero da conta:");
-				numeroConta = leitura.nextInt();
-				System.out.println("1 - Conta Especial");
-				System.out.println("2 - Conta Comum");
-				tipoConta = leitura.nextInt();
-				if(tipoConta == 1) {
-					for(int i=0; i<listaContaEspecial.size(); i++) {
-						if(listaContaEspecial.get(i).getNumero() == numeroConta) {
-							System.out.println("Qual o valor do saque?");
-							saque = leitura.nextFloat();
-							if(listaContaEspecial.get(i).sacar(saque)) {
-								System.out.println("Saque realizado com sucesso!!");
-							}
-							System.out.println("Erro ao realizar o saque.");
+				numeroContaAux = leitura.nextInt();
+				for(int i=0; i<listaConta.size(); i++) {
+					if(listaConta.get(i).getNumero() == numeroContaAux) {
+						System.out.println("Qual o valor do saque?");
+						saque = leitura.nextFloat();
+						if(listaConta.get(i).sacar(saque)) {
+							System.out.println("Saque realizado com sucesso!!");
 						}
-					}
-				}else if (tipoConta == 2) {
-					for(int i=0;i<listaContaComum.size();i++) {
-						if(listaContaComum.get(i).getNumero() == numeroConta) {
-							System.out.println("Qual o valor do saque?");
-							saque = leitura.nextFloat();
-							if(listaContaComum.get(i).sacar(saque)) {
-								System.out.println("Saque realizado com sucesso!!");
-							}
-							System.out.println("Erro ao realizar o saque.");
-						}
+						System.out.println("Erro ao realizar o saque.");
 					}
 				}
 				break;
 			}
 			case 3: {
+				int numeroContaAux = 0;
 				System.out.print("Digite o n�mero da conta:");
-				numeroConta = leitura.nextInt();
-				System.out.println("1 - Conta Especial");
-				System.out.println("2 - Conta Comum");
-				tipoConta = leitura.nextInt();
-				if(tipoConta == 1) {
-					for(int i=0; i<listaContaEspecial.size(); i++) {
-						if(listaContaEspecial.get(i).getNumero() == numeroConta) {
-							System.out.println("Qual o valor do dep�sito?");
-							deposito = leitura.nextFloat();
-							listaContaEspecial.get(i).depositar(deposito);
-								System.out.println("Dep�sito realizado com sucesso!!");
-						}
-					}
-				}else if (tipoConta == 2) {
-					for(int i=0;i<listaContaComum.size();i++) {
-						if(listaContaComum.get(i).getNumero() == numeroConta) {
-							System.out.println("Qual o valor do deposito?");
-							deposito = leitura.nextFloat();
-							listaContaComum.get(i).depositar(deposito);
-								System.out.println("Saque realizado com sucesso!!");
-						}
+				numeroContaAux = leitura.nextInt();
+				for(int i=0; i<listaConta.size(); i++) {
+					if(listaConta.get(i).getNumero() == numeroContaAux) {
+						System.out.println("Qual o valor do dep�sito?");
+						deposito = leitura.nextFloat();
+						listaConta.get(i).depositar(deposito);
+						System.out.println("Dep�sito realizado com sucesso!!");
 					}
 				}
+				
 				break;
 			}
 			case 4: {
+				int numeroContaOrigem = 0;
+				int numeroContaDestino = 0;
+				float valor = 0;
+				
+				Conta contaOrigem = null;
+				Conta contaDestino = null;
+				
+				System.out.print("Digite o n�mero da conta origem:");
+				numeroContaOrigem = leitura.nextInt();
+				System.out.print("Digite o n�mero da conta destino:");
+				numeroContaDestino = leitura.nextInt();
+
+				for(int i=0; i<listaConta.size(); i++) {
+					if(listaConta.get(i).getNumero() == numeroContaOrigem) {
+						System.out.println("Qual o valor da transferencia");
+						valor = leitura.nextFloat();
+						contaOrigem = listaConta.get(i);
+					}
+					if(listaConta.get(i).getNumero() == numeroContaDestino) {
+						contaDestino = listaConta.get(i);
+					}
+				}
+				if(contaOrigem != null && contaDestino != null) {
+					contaOrigem.transferir(contaDestino, valor);
+					System.out.println("Sucesso ao realizar a transferencia!");
+				}else {
+					System.out.println("Erro ao realizar a transferencia.");
+				}
+				
 				break;
 			}
 			case 0: {
 				break;
 			}
 			default:
-				throw new IllegalArgumentException("Unexpected value: " + opcao);
+				throw new IllegalArgumentException("Valor inesperado: " + opcao);
 			}
 			
 		}while(opcao !=0);
